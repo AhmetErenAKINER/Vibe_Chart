@@ -1,0 +1,14 @@
+{
+  "name": "vibe-chart",
+  "version": "2.0.0",
+  "description": "Dataset-driven chart generation system with AI-assisted analysis",
+  "scripts": {
+    "test": "cypress run",
+    "test:headed": "cypress run --headed",
+    "test:spec": "cypress run --spec \"cypress/e2e/vibe_chart.cy.js\"",
+    "cypress:open": "cypress open"
+  },
+  "devDependencies": {
+    "cypress": "^13.17.0"
+  }
+}
