@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI-Assisted Chart Reconstruction</title>
-    <meta name="description" content="Upload chart images and data files to detect chart types and generate R code">
+    <title>Vibe_Chart - Dataset-Driven Chart Generation</title>
+    <meta name="description" content="AI-assisted chart reconstruction with dataset-driven generation">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -13,103 +13,163 @@
     <div class="container">
         <!-- Header -->
         <header class="header">
-            <h1>📊 AI-Assisted Chart Reconstruction</h1>
-            <p class="subtitle">Upload your chart image and data to get started</p>
+            <h1>📊 Vibe_Chart</h1>
+            <p class="subtitle">Dataset-Driven Chart Generation System</p>
         </header>
 
         <!-- Main Content -->
         <main class="main-content">
 
-            <!-- Section 1: Upload Chart Image -->
+            <!-- Section 1: Upload Dataset & Explore Columns -->
             <section class="section-card">
                 <div class="section-header">
-                    <h2>1. Upload Chart Image</h2>
+                    <h2>1. Upload Dataset & Explore Columns</h2>
+                </div>
+                <div class="section-content">
+                    <div class="upload-group">
+                        <label for="datasetUpload" class="upload-label">
+                            Select CSV or Excel file
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="datasetUpload" accept=".csv,.xlsx,.xls" class="file-input">
+                            <label for="datasetUpload" class="file-input-label">
+                                <span id="datasetFileName">📁 Choose dataset file...</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button id="uploadDatasetBtn" class="btn btn-primary" disabled>
+                        📤 Upload Dataset
+                    </button>
+
+                    <!-- Column Metadata Table -->
+                    <div id="columnsDisplay" class="columns-display" style="display: none;">
+                        <h3>Dataset Columns</h3>
+                        <div id="datasetInfo" class="dataset-info"></div>
+                        <table id="columnsTable" class="column-table">
+                            <thead>
+                                <tr>
+                                    <th>Column Name</th>
+                                    <th>Type</th>
+                                    <th>Sample Values</th>
+                                </tr>
+                            </thead>
+                            <tbody id="columnsTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Generate Chart from Dataset -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>2. Generate Chart from Dataset</h2>
+                </div>
+                <div class="section-content">
+                    <div id="chartGenerationArea" class="chart-generation-disabled">
+                        <p class="info-message">⬆️ Please upload a dataset first to enable chart generation</p>
+                    </div>
+
+                    <div id="chartGenerationForm" style="display: none;">
+                        <!-- Chart Type Selection -->
+                        <div class="input-group">
+                            <label for="chartTypeSelect" class="upload-label">
+                                Select Chart Type
+                            </label>
+                            <select id="chartTypeSelect" class="dropdown">
+                                <option value="">-- Select Chart Type --</option>
+                            </select>
+                            <p id="chartRequirements" class="chart-requirements"></p>
+                        </div>
+
+                        <!-- Column Selection -->
+                        <div class="columns-selection">
+                            <div class="input-group">
+                                <label for="xColumnSelect" class="upload-label">
+                                    X Column
+                                </label>
+                                <select id="xColumnSelect" class="dropdown">
+                                    <option value="">-- Select Column --</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="yColumnSelect" class="upload-label">
+                                    Y Column
+                                </label>
+                                <select id="yColumnSelect" class="dropdown">
+                                    <option value="">-- Select Column --</option>
+                                </select>
+                            </div>
+
+                            <div class="input-group" id="groupColumnGroup" style="display: none;">
+                                <label for="groupColumnSelect" class="upload-label">
+                                    Group Column (Optional)
+                                </label>
+                                <select id="groupColumnSelect" class="dropdown">
+                                    <option value="">-- Select Column --</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <button id="generateChartBtn" class="btn btn-primary" disabled>
+                            📈 Generate Chart
+                        </button>
+
+                        <!-- Chart Preview -->
+                        <div id="chartPreview" class="chart-preview" style="display: none;">
+                            <h3>Generated Chart</h3>
+                            <img id="chartImage" alt="Generated Chart">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Analyze Existing Chart Image -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>3. Analyze Existing Chart Image</h2>
                 </div>
                 <div class="section-content">
                     <div class="upload-group">
                         <label for="imageUpload" class="upload-label">
-                            Select a chart image (PNG/JPG)
+                            Upload a chart image for analysis
                         </label>
                         <div class="file-input-wrapper">
                             <input type="file" id="imageUpload" accept=".png,.jpg,.jpeg" class="file-input">
                             <label for="imageUpload" class="file-input-label">
-                                <span id="imageFileName">📁 Choose image file...</span>
+                                <span id="imageFileName">📁 Choose chart image...</span>
                             </label>
                         </div>
                         <div id="imagePreview" class="image-preview"></div>
                     </div>
-                </div>
-            </section>
 
-            <!-- Section 2: Upload CSV Dataset -->
-            <section class="section-card">
-                <div class="section-header">
-                    <h2>2. Upload CSV Dataset</h2>
-                </div>
-                <div class="section-content">
-                    <div class="upload-group">
-                        <label for="csvUpload" class="upload-label">
-                            Select a CSV data file
-                        </label>
-                        <div class="file-input-wrapper">
-                            <input type="file" id="csvUpload" accept=".csv" class="file-input">
-                            <label for="csvUpload" class="file-input-label">
-                                <span id="csvFileName">📁 Choose CSV file...</span>
-                            </label>
-                        </div>
-                        <div id="csvInfo" class="csv-info"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Section 3: Analyze & Generate R Code -->
-            <section class="section-card">
-                <div class="section-header">
-                    <h2>3. Analyze & Generate R Code</h2>
-                </div>
-                <div class="section-content">
-                    <button id="analyzeBtn" class="btn btn-primary" disabled>
+                    <button id="analyzeImageBtn" class="btn btn-primary" disabled>
                         🔍 Analyze Image
                     </button>
 
+                    <!-- Analysis Results -->
                     <div id="analysisResults" class="results-area" style="display: none;">
                         <div class="result-box">
                             <h3>Detected Chart Type</h3>
-                            <div id="chartType" class="chart-type-badge"></div>
+                            <div id="detectedChartType" class="chart-type-badge"></div>
+                            <p id="confidenceScore" class="confidence-score"></p>
                         </div>
 
                         <div class="result-box">
-                            <h3>Generated R Code</h3>
-                            <pre id="rCode" class="code-block"></pre>
+                            <h3>Example R Code</h3>
+                            <textarea id="exampleRCode" class="code-textarea" readonly rows="8"></textarea>
                             <button id="copyCodeBtn" class="btn btn-secondary">📋 Copy Code</button>
                         </div>
-                    </div>
-                </div>
-            </section>
 
-            <!-- Section 4: Request R Plot -->
-            <section class="section-card">
-                <div class="section-header">
-                    <h2>4. Request R Plot</h2>
-                </div>
-                <div class="section-content">
-                    <div class="input-group">
-                        <label for="plotOptions" class="upload-label">
-                            Plot Options / Customization Prompt
-                        </label>
-                        <textarea id="plotOptions" class="text-area"
-                            placeholder="Enter any specific options or customization requests for the plot..."
-                            rows="4"></textarea>
-                    </div>
-
-                    <button id="plotBtn" class="btn btn-primary" disabled>
-                        📈 Request Plot from R API
-                    </button>
-
-                    <div id="plotResponse" class="results-area" style="display: none;">
-                        <div class="result-box">
-                            <h3>R API Response</h3>
-                            <pre id="plotResponseContent" class="code-block"></pre>
+                        <!-- Compatibility Check Results -->
+                        <div id="compatibilityResults" class="compatibility-results" style="display: none;">
+                            <h3>Dataset Compatibility Check</h3>
+                            <div id="compatibilityMessage" class="compatibility-message"></div>
+                            <button id="generateFromDetectedBtn" class="btn btn-success" style="display: none;">
+                                ✨ Generate This Chart with My Data
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -122,7 +182,7 @@
 
         <!-- Footer -->
         <footer class="footer">
-            <p>University Assignment - AI-Assisted Chart Reconstruction</p>
+            <p>Vibe_Chart - University Assignment Project</p>
         </footer>
     </div>
 
