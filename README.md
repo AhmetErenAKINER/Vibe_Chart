@@ -273,7 +273,7 @@ Bu bir üniversite ödevi projesidir. Öneriler ve iyileştirmeler için:
 2. İyileştirme önerileri yapın
 3. LLM entegrasyon noktalarını değerlendirin
 
-## � Teşekkürler
+## Teşekkürler
 
 Bu projenin geliştirilmesinde değerli katkıları ve rehberliği için:
 
@@ -282,7 +282,7 @@ Bu projenin geliştirilmesinde değerli katkıları ve rehberliği için:
 
 teşekkürlerimi sunarım.
 
-## �📄 Lisans
+## 📄 Lisans
 
 Üniversite Ödevi Projesi - Eğitim Amaçlı
 
