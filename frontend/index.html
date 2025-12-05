@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Assisted Chart Reconstruction</title>
+    <meta name="description" content="Upload chart images and data files to detect chart types and generate R code">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>📊 AI-Assisted Chart Reconstruction</h1>
+            <p class="subtitle">Upload your chart image and data to get started</p>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Section 1: Upload Chart Image -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>1. Upload Chart Image</h2>
+                </div>
+                <div class="section-content">
+                    <div class="upload-group">
+                        <label for="imageUpload" class="upload-label">
+                            Select a chart image (PNG/JPG)
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="imageUpload" accept=".png,.jpg,.jpeg" class="file-input">
+                            <label for="imageUpload" class="file-input-label">
+                                <span id="imageFileName">📁 Choose image file...</span>
+                            </label>
+                        </div>
+                        <div id="imagePreview" class="image-preview"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Upload CSV Dataset -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>2. Upload CSV Dataset</h2>
+                </div>
+                <div class="section-content">
+                    <div class="upload-group">
+                        <label for="csvUpload" class="upload-label">
+                            Select a CSV data file
+                        </label>
+                        <div class="file-input-wrapper">
+                            <input type="file" id="csvUpload" accept=".csv" class="file-input">
+                            <label for="csvUpload" class="file-input-label">
+                                <span id="csvFileName">📁 Choose CSV file...</span>
+                            </label>
+                        </div>
+                        <div id="csvInfo" class="csv-info"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Analyze & Generate R Code -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>3. Analyze & Generate R Code</h2>
+                </div>
+                <div class="section-content">
+                    <button id="analyzeBtn" class="btn btn-primary" disabled>
+                        🔍 Analyze Image
+                    </button>
+
+                    <div id="analysisResults" class="results-area" style="display: none;">
+                        <div class="result-box">
+                            <h3>Detected Chart Type</h3>
+                            <div id="chartType" class="chart-type-badge"></div>
+                        </div>
+
+                        <div class="result-box">
+                            <h3>Generated R Code</h3>
+                            <pre id="rCode" class="code-block"></pre>
+                            <button id="copyCodeBtn" class="btn btn-secondary">📋 Copy Code</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Request R Plot -->
+            <section class="section-card">
+                <div class="section-header">
+                    <h2>4. Request R Plot</h2>
+                </div>
+                <div class="section-content">
+                    <div class="input-group">
+                        <label for="plotOptions" class="upload-label">
+                            Plot Options / Customization Prompt
+                        </label>
+                        <textarea id="plotOptions" class="text-area"
+                            placeholder="Enter any specific options or customization requests for the plot..."
+                            rows="4"></textarea>
+                    </div>
+
+                    <button id="plotBtn" class="btn btn-primary" disabled>
+                        📈 Request Plot from R API
+                    </button>
+
+                    <div id="plotResponse" class="results-area" style="display: none;">
+                        <div class="result-box">
+                            <h3>R API Response</h3>
+                            <pre id="plotResponseContent" class="code-block"></pre>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Status Messages -->
+        <div id="statusMessage" class="status-message"></div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>University Assignment - AI-Assisted Chart Reconstruction</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
